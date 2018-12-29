@@ -1,0 +1,2 @@
+# stubtool
+Stubを作れるツール
