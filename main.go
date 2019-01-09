@@ -14,7 +14,6 @@ func main() {
 	router.Static("/fonts", "./dist/fonts")
 	router.Static("/img", "./dist/img")
 	router.Static("/js", "./dist/js")
-	router.StaticFile("/favicon.ico", "./dist/favicon.ico")
 	router.NoRoute(func(c *gin.Context) {
 		if strings.HasPrefix(c.Request.URL.Path, "/api") {
 			c.JSON(http.StatusNotFound, gin.H{"message": http.StatusText(http.StatusNotFound)})
