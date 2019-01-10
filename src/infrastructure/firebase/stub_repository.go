@@ -96,6 +96,37 @@ func (r *stubRepository) Delete(c *gin.Context, stubID string) (err error) {
 	return nil
 }
 
+func (r *stubRepository) DeleteAll(c *gin.Context, uid string) (err error) {
+	client, err := r.firestore(c)
+	if err != nil {
+		return fmt.Errorf(model.ErrInitializingApp, err)
+	}
+	defer client.Close()
+
+	iter := client.Collection("stubs").
+		Where("uid", "==", uid).
+		Documents(c)
+
+	batch := client.Batch()
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return fmt.Errorf(model.ErrGetData, err)
+		}
+
+		batch.Delete(doc.Ref)
+	}
+
+	if _, err := batch.Commit(c); err != nil {
+		return fmt.Errorf(model.ErrDeletingUser, err)
+	}
+
+	return nil
+}
+
 func (r *stubRepository) firestore(c *gin.Context) (*firestore.Client, error) {
 	app, err := firebase.NewApp(c, nil, opt)
 	if err != nil {

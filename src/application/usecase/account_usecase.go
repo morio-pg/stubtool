@@ -12,13 +12,21 @@ type AccountUsecase interface {
 
 type accountUsecase struct {
 	accountRepository repository.AccountRepository
+	stubRepository    repository.StubRepository
 }
 
 // NewAccountUsecase return AccountUsecase
-func NewAccountUsecase(accountRepository repository.AccountRepository) AccountUsecase {
-	return &accountUsecase{accountRepository}
+func NewAccountUsecase(
+	accountRepository repository.AccountRepository,
+	stubRepository repository.StubRepository,
+) AccountUsecase {
+	return &accountUsecase{accountRepository, stubRepository}
 }
 
 func (u *accountUsecase) Delete(c *gin.Context, uid string) (err error) {
+	if err := u.stubRepository.DeleteAll(c, uid); err != nil {
+		return err
+	}
+
 	return u.accountRepository.Delete(c, uid)
 }

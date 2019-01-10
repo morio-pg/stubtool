@@ -11,4 +11,5 @@ type StubRepository interface {
 	GetAll(c *gin.Context, uid string) (stubs []model.Stub, err error)
 	Save(c *gin.Context, stub *model.Stub) (err error)
 	Delete(c *gin.Context, stubID string) (err error)
+	DeleteAll(c *gin.Context, uid string) (err error)
 }
