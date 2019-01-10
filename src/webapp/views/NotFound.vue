@@ -14,7 +14,9 @@
     </nav>
 
     <div class="content has-text-centered">
-      <h3>ページが見つかりませんでした</h3>
+      <h3>指定されたページが見つかりません</h3>
+      <p>URLに間違いがないかご確認ください</p>
+      <p>ページの再読み込みをお試しください</p>
     </div>
   </div>
 </template>
