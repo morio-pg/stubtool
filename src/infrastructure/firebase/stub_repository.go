@@ -108,6 +108,7 @@ func (r *stubRepository) DeleteAll(c *gin.Context, uid string) (err error) {
 		Documents(c)
 
 	batch := client.Batch()
+	i := 0
 	for {
 		doc, err := iter.Next()
 		if err == iterator.Done {
@@ -118,10 +119,13 @@ func (r *stubRepository) DeleteAll(c *gin.Context, uid string) (err error) {
 		}
 
 		batch.Delete(doc.Ref)
+		i++
 	}
 
-	if _, err := batch.Commit(c); err != nil {
-		return fmt.Errorf(model.ErrDeletingUser, err)
+	if i > 0 {
+		if _, err := batch.Commit(c); err != nil {
+			return fmt.Errorf(model.ErrDeletingUser, err)
+		}
 	}
 
 	return nil
