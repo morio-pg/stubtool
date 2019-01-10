@@ -29,7 +29,7 @@
 </template>
 <script>
 import axios from "axios";
-import store from "@/store";
+import firebase from "@firebase/app";
 
 export default {
   data() {
@@ -58,8 +58,7 @@ export default {
                   message: "アカウントを削除しました",
                   type: "is-success"
                 });
-                store.commit("onAuthStateChanged", {});
-                store.commit("onUserStatusChanged", false);
+                firebase.auth().signOut();
                 this.$router.push({ name: "Home" });
               }.bind(this)
             )
