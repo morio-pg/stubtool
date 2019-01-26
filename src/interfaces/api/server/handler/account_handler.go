@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/morio-pg/stubtool/src/application/usecase"
-	"github.com/morio-pg/stubtool/src/domain/model"
+	"github.com/morio-pg/stubtool/src/interfaces/api/server/dto"
 )
 
 // AccountHandler interface
@@ -32,11 +32,11 @@ func (h *accountHandler) Delete(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, model.Success{Status: "OK"})
+	c.JSON(http.StatusOK, dto.Success{Status: "OK"})
 }
 
 func (h *accountHandler) badRequest(c *gin.Context, err error) {
 	fmt.Println(err)
-	c.JSON(http.StatusBadRequest, model.Error{Message: http.StatusText(http.StatusBadRequest)})
+	c.JSON(http.StatusBadRequest, dto.Error{Message: http.StatusText(http.StatusBadRequest)})
 	c.Abort()
 }

@@ -22,7 +22,8 @@ func main() {
 		}
 	})
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"https://stubtool.herokuapp.com", "http://localhost:8080"}
+	config.AllowAllOrigins = true
+	config.AddAllowHeaders("Authorization", "Accept")
 	router.Use(cors.New(config))
 	router.Run()
 }

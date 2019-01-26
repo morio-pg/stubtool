@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/morio-pg/stubtool/src/application/usecase"
-	"github.com/morio-pg/stubtool/src/domain/model"
+	"github.com/morio-pg/stubtool/src/interfaces/api/server/dto"
 )
 
 // StubsHandler interface
@@ -48,6 +48,6 @@ func (h *stubsHandler) Get(c *gin.Context) {
 
 func (h *stubsHandler) notFound(c *gin.Context, err error) {
 	fmt.Println(err)
-	c.JSON(http.StatusNotFound, model.Error{Message: http.StatusText(http.StatusNotFound)})
+	c.JSON(http.StatusNotFound, dto.Error{Message: http.StatusText(http.StatusNotFound)})
 	c.Abort()
 }

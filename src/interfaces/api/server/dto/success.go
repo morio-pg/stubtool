@@ -1,4 +1,4 @@
-package model
+package dto
 
 // Success データの構造体
 type Success struct {
