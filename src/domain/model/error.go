@@ -24,8 +24,3 @@ var (
 	// ErrMismatchFilename ファイル名不一致エラー
 	ErrMismatchFilename = "error mismatch filename: %s != %s"
 )
-
-// Error データの構造体
-type Error struct {
-	Message string `json:"message"`
-}

@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/morio-pg/stubtool/src/application/usecase"
-	"github.com/morio-pg/stubtool/src/domain/model"
+	"github.com/morio-pg/stubtool/src/interfaces/api/server/dto"
 )
 
 // AuthenticationMiddleware interface
@@ -29,7 +29,7 @@ func (m *authenticationMiddleware) Check(c *gin.Context) {
 	uid, err := m.authenticationUsecase.Check(c)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusUnauthorized, model.Error{Message: http.StatusText(http.StatusUnauthorized)})
+		c.JSON(http.StatusUnauthorized, dto.Error{Message: http.StatusText(http.StatusUnauthorized)})
 		c.Abort()
 		return
 	}
